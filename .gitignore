@@ -1,0 +1,9 @@
+# node modules
+node_modules
+yarn-error.log
+
+# build files
+dist
+
+# misc
+.DS_Store
