@@ -1,0 +1,17 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "node": true
+  },
+  "extends": ["eslint:recommended", "eslint-config-prettier"],
+  "rules": {
+    "strict": ["error", "never"],
+    "no-var": "error"
+  }
+}

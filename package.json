@@ -6,10 +6,16 @@
   "license": "MIT",
   "private": false,
   "scripts": {
+    "lint": "eslint --ignore-path .gitignore .",
+    "lint:fix": "eslint --ignore-path .gitignore . --fix",
+    "prettier": "prettier --ignore-path .gitignore \"**/*.+(js|json|ts|tsx)\"",
+    "format": "yarn prettier --check",
+    "format:fix": "yarn prettier --write",
     "build": "babel src --out-dir dist",
     "build:watch": "yarn build --watch",
     "dev": "concurrently -n babel,app \"yarn build:watch\" \"nodemon -q dist/index.js\"",
-    "start": "cross-env NODE_ENV=production node ./dist/server.js"
+    "start": "cross-env NODE_ENV=production node ./dist/server.js",
+    "validate": "yarn lint && yarn format && yarn build"
   },
   "devDependencies": {
     "@babel/cli": "^7.20.7",
@@ -17,6 +23,9 @@
     "@babel/preset-env": "^7.20.2",
     "concurrently": "^7.6.0",
     "cross-env": "^7.0.3",
-    "nodemon": "^2.0.20"
+    "eslint": "^8.32.0",
+    "eslint-config-prettier": "^8.6.0",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.3"
   }
 }
