@@ -25,20 +25,20 @@ class Person implements IPerson {
 /**
  * Demo Application
  */
-const newMember = new Person('Billy', 32, 'bill@example.com')
+const newMember = new Person('Billy', 88, 'bill@example.com')
 
 console.log('')
 console.log(`Welcome to hyper[local] backend server`)
 console.log(`Members must be 18 years or older.\n`)
 
-console.log('New applicant is ', newMember)
+console.log('New member is a', newMember)
 
 if (newMember.age >= 18) {
   console.log(
     `+ ${newMember.name} is ${newMember.age}, please introduce yourself\n\n`,
   )
   newMember.talk('Hello everyone, super stoked to learn TypeScript\n\n')
-  process.exit
+  process.exit(0)
 } else {
   console.log(`${newMember.name} is a minor. Rejecting membership...\n\n`)
   process.exit(1)

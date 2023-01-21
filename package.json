@@ -14,10 +14,11 @@
     "check-types": "tsc",
     "build": "babel src --extensions .ts,.tsx --out-dir dist",
     "build:watch": "yarn build --watch",
-    "dev": "concurrently -n babel,app \"yarn build:watch\" \"nodemon -q dist/index.js\"",
-    "start": "cross-env NODE_ENV=production node ./dist/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon ./src/app.ts",
+    "start": "cross-env NODE_ENV=production node ./dist/app.js",
     "validate": "yarn lint && yarn format && yarn check-types && yarn build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prestart": "yarn build"
   },
   "devDependencies": {
     "@babel/cli": "^7.20.7",
