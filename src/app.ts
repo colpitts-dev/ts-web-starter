@@ -1,45 +1,15 @@
-interface IPerson {
-  name: string
-  age: number
-  email: string
-}
+import initAppEnv from './config/env'
+import initExpress from './config/express'
 
-/**
- * Example Class
- */
-class Person implements IPerson {
-  name: string
-  age: number
-  email: string
-  constructor(name: string, age: number, email: string) {
-    this.name = name
-    this.age = age
-    this.email = email
-  }
+// Init config
+initAppEnv()
 
-  talk(msg: string) {
-    console.log(`[${this.name}]: ${msg}`)
-  }
-}
+// Init server
+const server = initExpress()
 
-/**
- * Demo Application
- */
-const newMember = new Person('Billy', 88, 'bill@example.com')
-
-console.log('')
-console.log(`Welcome to hyper[local] backend server`)
-console.log(`Members must be 18 years or older.\n`)
-
-console.log('New member is a', newMember)
-
-if (newMember.age >= 18) {
-  console.log(
-    `+ ${newMember.name} is ${newMember.age}, please introduce yourself\n\n`,
-  )
-  newMember.talk('Hello everyone, super stoked to learn TypeScript\n\n')
-  process.exit(0)
-} else {
-  console.log(`${newMember.name} is a minor. Rejecting membership...\n\n`)
-  process.exit(1)
-}
+// Terminate gracefully
+process.on('SIGTERM', () => {
+  server.close(() => {
+    console.log('⭐ Express server closed.')
+  })
+})
