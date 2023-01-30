@@ -7,6 +7,7 @@ import express, {
 } from 'express'
 import { create } from 'express-handlebars'
 import { Server } from 'http'
+import cors from 'cors'
 import logger from 'morgan'
 
 function initExpress(): Server {
@@ -21,6 +22,7 @@ function initExpress(): Server {
   app.set('views', process.cwd() + '/views')
 
   // Middleware
+  app.use(cors())
   app.use(logger('dev'))
   app.use(json())
   app.use(urlencoded({ extended: false }))
@@ -36,9 +38,8 @@ function initExpress(): Server {
 
   // Fire it up!
   const PORT: string | number = process.env.PORT || 8081
-  return app.listen(
-    PORT,
-    () => console.log(`🚀 Web server started on port ${PORT}`), // tslint:disable-line
+  return app.listen(PORT, () =>
+    console.log(`🚀 Web server started on port ${PORT}`),
   )
 }
 
