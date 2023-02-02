@@ -11,7 +11,7 @@ import cors from 'cors'
 import logger from 'morgan'
 
 import { config } from './env'
-import { Person } from '../models/person'
+import { Person } from '../models/person.model'
 
 function initExpress(): Server {
   const app: Application = express()

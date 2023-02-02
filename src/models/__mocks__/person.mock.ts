@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 
-import { PersonInput } from '../Person'
+import { PersonInput } from '../person.model'
 
 export const newPersonMock = (): PersonInput => ({
   firstName: faker.name.firstName(),

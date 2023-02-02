@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 
-import { Person, PersonInput } from '../Person'
-import { newPersonMock } from '../__mocks__/Person.mock'
+import { Person, PersonInput } from '../person.model'
+import { newPersonMock } from '../__mocks__/person.mock'
 
 describe('Person Model', () => {
   const personInput = newPersonMock()
