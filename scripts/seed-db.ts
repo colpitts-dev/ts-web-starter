@@ -1,11 +1,10 @@
-import { CommentDocument } from './../src/models/comment.model'
 import mongoose, { connect } from 'mongoose'
 import { faker } from '@faker-js/faker'
 import dotenv from 'dotenv'
 
 import Person from '../src/models/person.model'
 import Post, { PostDocument } from '../src/models/post.model'
-import Comment from '../src/models/comment.model'
+import Comment, { CommentDocument } from '../src/models/comment.model'
 
 dotenv.config()
 
