@@ -1,15 +1,20 @@
 import initAppEnv from './config/env'
 import initExpress from './config/express'
+import { connectDB, disconnectDB } from './config/mongodb'
 
 // Init config
 initAppEnv()
 
-// Init server
-const server = initExpress()
+// Connect to MongoDB
+connectDB(() => {
+  // Init web server
+  const server = initExpress()
 
-// Terminate gracefully
-process.on('SIGTERM', () => {
-  server.close(() => {
-    console.log('⭐ Express server closed.')
+  // Graceful termination
+  process.on('SIGTERM', async () => {
+    server.close(() => {
+      console.log('⭐ Web server closed.')
+    })
+    await disconnectDB()
   })
 })

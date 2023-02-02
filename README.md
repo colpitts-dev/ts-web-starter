@@ -1,9 +1,19 @@
-# TypeScript Web Boilerplate
-An open source TypeScript project boilerplate
+# TypeScript Web Starter
+
+An open source web server written in TypeScript
+
+## Features
+
+- **TypeScript**: Transpiles app to javascript using `babel`. Type checking
+  perfomed using `tsc`
+- **Coding Standards**: Linting and Formatting using `eslint` and `prettier`.
+  Husky `pre-commit` hook validates standards.
+- **MongoDB**: Example data models with passing test suite to get started
 
 ## Getting Started
 
 ### Prereqs
+
 - node 16
 - yarn@latest
 
@@ -16,11 +26,9 @@ yarn dev
 
 ### Available Scripts
 
-`lint` - Runs ESLint<br/>
-`format` - Checks formatting using Prettier<br/>
-`format:fix` - Fixes formatting using Prettier</br>
-`check-types` - Checks Types using tsc</br>
-`validate` - Checks health of source code by running all of the above. Also runs as a pre-commit git hook using Husky.<br/>
-`build` - Transpiles our app into JavaScript in the `/dist` folder<br/>
-`dev` - Runs our application in `development` mode<br/>
-`start` - Runs the application in `production` mode<br/>
+`test` - Runs unit tests<br/> `lint` - Runs ESLint<br/> `format` - Checks
+formatting using Prettier<br/> `format:fix` - Fixes formatting using
+Prettier</br> `check-types` - Checks Types using tsc</br> `validate` - Checks
+health of source code by running all of the above.<br/> `build` - Transpiles our
+app into JavaScript in the `/dist` folder<br/> `dev` - Runs our application in
+`development` mode<br/> `start` - Runs the application in `production` mode<br/>

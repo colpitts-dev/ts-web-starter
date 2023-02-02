@@ -10,6 +10,9 @@ import { Server } from 'http'
 import cors from 'cors'
 import logger from 'morgan'
 
+import { config } from './env'
+import { Person } from '../models/person'
+
 function initExpress(): Server {
   const app: Application = express()
   const hbs = create({
@@ -28,18 +31,37 @@ function initExpress(): Server {
   app.use(urlencoded({ extended: false }))
 
   // Example Route
-  app.get('/', (req: Request, res: Response) => {
+  app.get('/', async (req: Request, res: Response) => {
+    let data = {}
+
+    try {
+      const newPerson = await Person.create({
+        email: 'adam@example.com',
+        firstName: 'Adam',
+        age: 18,
+      })
+
+      newPerson.save()
+
+      data = { person: newPerson }
+    } catch (e) {
+      data = { error: e }
+      console.error(e)
+    }
+
     return res.render('landing', {
       title: 'hyper[local]',
       content: 'community engagement platform',
       layout: 'public',
+      data,
     })
   })
 
   // Fire it up!
-  const PORT: string | number = process.env.PORT || 8081
-  return app.listen(PORT, () =>
-    console.log(`🚀 Web server started on port ${PORT}`),
+  return app.listen(config.port, () =>
+    console.log(
+      `🚀 [${config.appName}]: Web server listening on ${config.port}`,
+    ),
   )
 }
 
