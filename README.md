@@ -9,6 +9,8 @@ An open source web server written in TypeScript
 - **Coding Standards**: Linting and Formatting using `eslint` and `prettier`.
   Husky `pre-commit` hook validates standards.
 - **MongoDB**: Example data models with passing test suite to get started
+- **Mongo-Memory-Server**: Test suite uses mongo-memory-server
+- **Sample Data**: yarn script to seed sample app data `yarn db:seed`
 
 ## Getting Started
 
@@ -20,7 +22,9 @@ An open source web server written in TypeScript
 With a fresh copy of this repo on your local:
 
 ```
+cp .env.sample .env
 yarn install
+yarn db:seed
 yarn dev
 ```
 

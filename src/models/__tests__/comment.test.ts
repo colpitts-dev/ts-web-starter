@@ -64,7 +64,7 @@ describe('Comment model', () => {
     })
   })
 
-  describe('when associating documents', () => {
+  describe('when associating collections', () => {
     it('belongs to a person', async () => {
       const fetchedComment = await Comment.findById({
         _id: comment._id,

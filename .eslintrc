@@ -14,7 +14,7 @@
     "strict": ["error", "never"],
     "no-var": "error"
   },
-  "ignorePatterns": ["/test/*.ts"],
+  "ignorePatterns": ["test", "scripts"],
   "overrides": [
     {
       "files": "**/*.+(ts|tsx)",

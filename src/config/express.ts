@@ -35,15 +35,8 @@ function initExpress(): Server {
     let data = {}
 
     try {
-      const newPerson = await Person.create({
-        email: 'adam123@example.com',
-        firstName: 'Adam',
-        age: 18,
-      })
-
-      newPerson.save()
-
-      data = { person: newPerson }
+      const people = await Person.find()
+      data = { people }
     } catch (e) {
       data = { error: e }
       console.error(e)
