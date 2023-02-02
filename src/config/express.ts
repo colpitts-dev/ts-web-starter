@@ -36,7 +36,7 @@ function initExpress(): Server {
 
     try {
       const newPerson = await Person.create({
-        email: 'adam@example.com',
+        email: 'adam123@example.com',
         firstName: 'Adam',
         age: 18,
       })
