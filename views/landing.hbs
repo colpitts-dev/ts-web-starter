@@ -3,19 +3,25 @@
   <p
     class='text-xs uppercase tracking-widest text-slate-600 mb-4'
   >{{content}}</p>
-  <pre>{{data.error}}</pre>
-  <div class='flex flex-wrap bg-gray-900'>
-    {{#each data.people}}
-      {{#each this}}
-        {{#if this.firstName}}
-          <div class='m-4 p-4 min-w-1/4 border border-gray-300'>
-            <h3 class='text-3xl text-white'>{{firstName}}
-              {{lastName}}</h3>
-            <p class='text-pink-200'>email: {{email}}</p>
-            <p class='text-pink-300'>age: {{age}}</p>
-          </div>
-        {{/if}}
+  {{#if data.error}}
+    <pre>{{data.error}}</pre>
+  {{/if}}
+  {{#if data.people}}
+    <div class='flex flex-wrap bg-gray-900'>
+      {{#each data.people}}
+        {{#each this}}
+          {{#if this.firstName}}
+            <a href='./{{this._id}}'>
+              <div class='m-4 p-4 min-w-1/4 border border-gray-300'>
+                <h3 class='text-3xl text-white'>{{firstName}}
+                  {{lastName}}</h3>
+                <p class='text-pink-200'>email: {{email}}</p>
+                <p class='text-pink-300'>age: {{age}}</p>
+              </div>
+            </a>
+          {{/if}}
+        {{/each}}
       {{/each}}
-    {{/each}}
-  </div>
+    </div>
+  {{/if}}
 </main>

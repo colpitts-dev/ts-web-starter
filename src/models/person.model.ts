@@ -1,7 +1,7 @@
 import { model, Schema, Document } from 'mongoose'
 
-import { CommentDocument } from './comment.model'
-import { PostDocument } from './post.model'
+import Comment, { CommentDocument } from './comment.model'
+import Post, { PostDocument } from './post.model'
 
 // Person Interfaces
 export interface PersonInput {
@@ -48,17 +48,18 @@ const PersonSchema = new Schema<PersonDocument>(
     posts: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Post',
+        ref: Post,
       },
     ],
     comments: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Comment',
+        ref: Comment,
       },
     ],
   },
   {
+    toJSON: { virtuals: true },
     timestamps: true, // to create updatedAt and createdAt
   },
 )

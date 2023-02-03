@@ -49,14 +49,17 @@ async function run() {
     const comments = new Array<CommentDocument>()
     let j = 0
     while (j < POST_SEEDS) {
-      const postInput = getContentSeed()
+      const postInput = {
+        ...getContentSeed(),
+        title: faker.lorem.sentence(),
+      }
       const newPost = new Post({ ...postInput })
 
       const COMMENT_SEEDS = Math.round(Math.random() * MAX_COMMENT_SEEDS)
       let k = 0
       while (k < COMMENT_SEEDS) {
         const commentInput = getContentSeed()
-        const newComment = new Comment({ ...commentInput, owner: person })
+        const newComment = new Comment({ ...commentInput })
         const data = await newComment.save()
         comments.push(data)
         k++
@@ -67,10 +70,20 @@ async function run() {
       j++
     }
     person.posts = posts
-    person.comments = comments
+
     await person.save()
 
     i++
+  }
+
+  const people = await Person.find()
+
+  for await (const doc of Comment.find()) {
+    const rand = Math.floor(Math.random() * people.length)
+    const randomPerson = people[rand]
+    doc.owner = randomPerson
+    randomPerson.comments.push(doc)
+    await Promise.all([randomPerson.save(), doc.save()])
   }
 
   await mongoose.connection.close()

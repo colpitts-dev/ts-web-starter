@@ -1,0 +1,52 @@
+<main class='flex flex-col'>
+
+  {{#if data.error}}
+    <pre>{{data.error}}</pre>
+  {{/if}}
+  {{#if data.people}}
+    <div class='flex'>
+
+      {{#each data.people}}
+        <section class='flex flex-col p-4 mr-4'>
+          <h3 class='text-3xl text-pink-500 mb-2'>{{firstName}}
+            {{lastName}}</h3>
+          <p class='text-pink-600'>email: {{email}}</p>
+          <p class='text-pink-600 mb-2'>age: {{age}}</p>
+
+          <p class='text-1xl text-gray-400 mb-6'>Posts:
+            {{postCount}}<br />
+            Comments:
+            {{commentCount}}</p>
+
+          <div class='flex text-pink-500'>
+            <a href='./'>&lsaquo; BACK</a>
+          </div>
+        </section>
+
+        <section class='bg-slate-100 min-h-screen w-full'>
+          {{#each posts}}
+            <div class='border bg-white p-6 m-2'>
+              {{#if title}}<h4 class='text-2xl mb-1'>{{title}}</h4>{{/if}}
+              <p class='text-xs uppercase mb-6'>{{createdAt}}</p>
+
+              <p class='mb-6'>{{content}}</p>
+
+              {{#each comments}}
+                <div class='bg-slate-100 p-6 mb-2'>
+                  <p class='mb-2'>{{owner.firstName}} {{owner.lastName}}</p>
+                  <p class='mb-2'>{{content}}</p>
+                  <p class='text-xs uppercase'>{{createdAt}}</p>
+                </div>
+              {{/each}}
+
+            </div>
+
+          {{/each}}
+        </section>
+
+      {{/each}}
+
+    </div>
+  {{/if}}
+
+</main>

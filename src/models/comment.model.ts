@@ -1,5 +1,5 @@
-import { PersonDocument } from './person.model'
 import { model, Schema, Document } from 'mongoose'
+import { PersonDocument } from './person.model'
 
 export interface CommentInput {
   content: string

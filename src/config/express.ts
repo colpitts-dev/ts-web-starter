@@ -11,11 +11,12 @@ import cors from 'cors'
 import logger from 'morgan'
 
 import { config } from './env'
-import { Person } from '../models/person.model'
+import routesAPI from '../api/routes'
 
 function initExpress(): Server {
   const app: Application = express()
   const hbs = create({
+    defaultLayout: 'public',
     extname: '.hbs',
   })
 
@@ -30,24 +31,29 @@ function initExpress(): Server {
   app.use(json())
   app.use(urlencoded({ extended: false }))
 
-  // Example Route
-  app.get('/', async (req: Request, res: Response) => {
-    let data = {}
-
-    try {
-      const people = await Person.find()
-      data = { people }
-    } catch (e) {
-      data = { error: e }
-      console.error(e)
-    }
-
+  // Routes
+  app.get('/', (req: Request, res: Response) => {
     return res.render('landing', {
       title: 'hyper[local]',
       content: 'community engagement platform',
-      layout: 'public',
-      data,
     })
+  })
+
+  // API Endpoints
+  app.use('/api', routesAPI)
+
+  // Catchall for not found
+  app.get('*', function (req, res) {
+    if (req.header('Accept')?.includes('application/json')) {
+      res.status(400).send({
+        data: { error: 'resource does not exist' },
+      })
+    } else {
+      res.status(404).render('landing', {
+        title: '404 Not Found',
+        content: 'please check the url and try again',
+      })
+    }
   })
 
   // Fire it up!
