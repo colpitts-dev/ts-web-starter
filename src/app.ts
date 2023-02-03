@@ -3,7 +3,12 @@ import initExpress from './config/express'
 import { connectDB, disconnectDB } from './config/mongodb'
 
 // Init config
-initAppEnv()
+try {
+  initAppEnv()
+} catch (e) {
+  console.error('\n\nError: dotenv `.env` not found\n\n')
+  process.exit(1)
+}
 
 // Connect to MongoDB
 connectDB(() => {
