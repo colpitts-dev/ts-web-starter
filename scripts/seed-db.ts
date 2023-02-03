@@ -46,7 +46,6 @@ async function run() {
 
     const POST_SEEDS = Math.round(Math.random() * MAX_POST_SEEDS)
     const posts = new Array<PostDocument>()
-    const comments = new Array<CommentDocument>()
     let j = 0
     while (j < POST_SEEDS) {
       const postInput = {
@@ -57,6 +56,7 @@ async function run() {
 
       const COMMENT_SEEDS = Math.round(Math.random() * MAX_COMMENT_SEEDS)
       let k = 0
+      const comments = new Array<CommentDocument>()
       while (k < COMMENT_SEEDS) {
         const commentInput = getContentSeed()
         const newComment = new Comment({ ...commentInput })

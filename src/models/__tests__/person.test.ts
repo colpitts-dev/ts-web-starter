@@ -6,20 +6,19 @@ import Post from '../post.model'
 import Comment from '../comment.model'
 
 describe('Person Model', () => {
-  const personInput = newPersonMock()
-  const person = new Person({ ...personInput })
+  let person: PersonDocument, personInput: PersonInput
+  beforeAll(async () => {
+    personInput = newPersonMock()
+    person = new Person({ ...personInput })
+    await person.save()
+  })
+
+  afterAll(async () => {
+    await person.delete()
+  })
 
   describe('when given valid input', () => {
-    it('creates a new person', async () => {
-      const createdPerson = await person.save()
-
-      expect(createdPerson).toBeDefined()
-      expect(createdPerson.firstName).toBe(person.firstName)
-      expect(createdPerson.email).toBe(person.email)
-      expect(createdPerson.age).toBe(person.age)
-    })
-
-    it('reads an existing person', async () => {
+    it('creates and reads a new person', async () => {
       const fetchedPerson = await Person.findOne({ _id: person._id })
 
       expect(fetchedPerson).toBeDefined()
@@ -110,6 +109,10 @@ describe('Person Model', () => {
         anotherPost.save(),
         comment.save(),
       ])
+    })
+
+    afterAll(async () => {
+      await owner.delete()
     })
 
     it('returns a full relation graph', async () => {

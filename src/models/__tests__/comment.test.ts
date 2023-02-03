@@ -23,6 +23,11 @@ describe('Comment model', () => {
     await comment.save()
   })
 
+  afterEach(async () => {
+    await owner.delete()
+    await comment.delete()
+  })
+
   describe('when given valid input', () => {
     it('creates a new comment', async () => {
       expect(comment).toBeDefined()

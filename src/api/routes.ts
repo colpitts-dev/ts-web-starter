@@ -6,7 +6,7 @@ const routes = Router()
 routes.get('/', (req: Request, res: Response) => {
   if (req.header('Accept')?.includes('application/json')) {
     res.send({
-      data: { message: 'Welcome to hyper[local] community engagement api' },
+      data: { message: 'Welcome to hyper[local] community engagement api.' },
     })
   } else {
     return res.render('landing', {

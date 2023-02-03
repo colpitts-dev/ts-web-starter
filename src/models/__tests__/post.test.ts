@@ -25,6 +25,11 @@ describe('Post model', () => {
     await post.save()
   })
 
+  afterAll(async () => {
+    await owner.delete()
+    await post.delete()
+  })
+
   it('creates and reads a document given valid input', async () => {
     const fetchedPost = await Post.findOne({ _id: post._id })
     expect(fetchedPost).toMatchObject(postInput)
