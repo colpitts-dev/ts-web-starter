@@ -2,16 +2,13 @@ import { faker } from '@faker-js/faker'
 
 import Post, { PostDocument, PostInput } from '../post.model'
 import Person, { PersonDocument, PersonInput } from '../person.model'
+import { newPersonMock } from '../__mocks__/person.mock'
 
 describe('Post model', () => {
   let owner: PersonDocument, post: PostDocument, postInput: PostInput
 
   beforeAll(async () => {
-    owner = new Person<PersonInput>({
-      firstName: faker.name.firstName(),
-      email: faker.internet.email(),
-      age: faker.datatype.number({ min: 18, max: 50 }),
-    })
+    owner = new Person<PersonInput>(newPersonMock())
     await owner.save()
 
     postInput = {

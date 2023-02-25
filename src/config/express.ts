@@ -29,7 +29,7 @@ function initExpress(): Server {
   app.use(cors())
   app.use(logger('dev'))
   app.use(json())
-  app.use(urlencoded({ extended: false }))
+  app.use(urlencoded({ extended: true }))
 
   // Routes
   app.get('/', (req: Request, res: Response) => {

@@ -6,6 +6,7 @@ export const newPersonMock = (): PersonInput => ({
   firstName: faker.name.firstName(),
   lastName: faker.name.lastName(),
   email: faker.internet.email().toLocaleLowerCase(),
+  password: 'foobarbaz',
   age: faker.datatype.number({ min: 18, max: 50 }),
   location: faker.address.cityName(),
 })

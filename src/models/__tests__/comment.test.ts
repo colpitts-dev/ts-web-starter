@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker'
 
 import Comment, { CommentDocument, CommentInput } from '../comment.model'
 import Person, { PersonDocument, PersonInput } from '../person.model'
+import { newPersonMock } from '../__mocks__/person.mock'
 
 describe('Comment model', () => {
   let comment: CommentDocument,
@@ -9,11 +10,7 @@ describe('Comment model', () => {
     owner: PersonDocument
 
   beforeEach(async () => {
-    owner = new Person<PersonInput>({
-      firstName: faker.name.firstName(),
-      email: faker.internet.email(),
-      age: faker.datatype.number({ min: 18, max: 50 }),
-    })
+    owner = new Person<PersonInput>(newPersonMock())
     await owner.save()
 
     commentInput = {

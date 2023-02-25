@@ -1,11 +1,14 @@
 import { model, Schema, Document } from 'mongoose'
+import bcrypt from 'bcrypt'
 
 import Comment, { CommentDocument } from './comment.model'
 import Post, { PostDocument } from './post.model'
 
+const saltRounds = 8
 // Person Interfaces
 export interface PersonInput {
   email: string
+  password: string
   firstName: string
   age: number
   lastName?: string
@@ -25,6 +28,17 @@ export interface PersonDocument extends PersonInput, Document {
 const PersonSchema = new Schema<PersonDocument>(
   {
     firstName: { type: String, required: [true, 'Name is required.'] },
+    password: {
+      type: String,
+      trim: true,
+      validate: {
+        validator: function (v: string) {
+          return /.{8,}/.test(v)
+        },
+        message: 'Password must be at least 8 characters.',
+      },
+      required: [true, 'Password is required.'],
+    },
     lastName: { type: String },
     email: {
       type: String,
@@ -33,7 +47,7 @@ const PersonSchema = new Schema<PersonDocument>(
       unique: true,
       validate: {
         validator: function (v: string) {
-          return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v)
+          return /[^\s@]+@[^\s@]+\.[^\s@]+/gi.test(v)
         },
         message: 'Please enter a valid email.',
       },
@@ -63,6 +77,14 @@ const PersonSchema = new Schema<PersonDocument>(
     timestamps: true, // to create updatedAt and createdAt
   },
 )
+
+// Pre-save hooks
+PersonSchema.pre('save', async function (next) {
+  if (this.isModified('password')) {
+    this.password = await bcrypt.hash(this.password, saltRounds)
+  }
+  next()
+})
 
 // Virtual getters
 PersonSchema.virtual('postCount').get(function () {

@@ -22,12 +22,13 @@ describe('Person Model', () => {
       const fetchedPerson = await Person.findOne({ _id: person._id })
 
       expect(fetchedPerson).toBeDefined()
-      expect(fetchedPerson).toMatchObject(personInput)
+      expect(fetchedPerson?.email).toEqual(personInput.email)
     })
 
     it('updates an existing person', async () => {
       const personUpdateInput: PersonInput = {
         firstName: faker.name.firstName(),
+        password: 'foobarbaz',
         email: faker.internet.email().toLocaleLowerCase(),
         age: faker.datatype.number({ min: 18, max: 50 }),
         location: faker.address.city(),
@@ -49,6 +50,7 @@ describe('Person Model', () => {
   describe('when validating documents', () => {
     const invalidPerson = new Person({
       firstName: undefined,
+      password: '1234567',
       email: 'invalidatexampledotcom',
       age: 16,
     })
@@ -57,6 +59,11 @@ describe('Person Model', () => {
     it('requires a first name', () => {
       const validationError = validationResult?.errors?.firstName?.message
       expect(validationError).toBe('Name is required.')
+    })
+
+    it('requires a valid password', () => {
+      const validationError = validationResult?.errors?.password?.message
+      expect(validationError).toBe('Password must be at least 8 characters.')
     })
 
     it('requires a valid email address', () => {
@@ -77,6 +84,7 @@ describe('Person Model', () => {
       owner = new Person({
         firstName: 'Jane Doe',
         email: faker.internet.email().toLowerCase(),
+        password: 'foobarbaz',
         age: 22,
       })
       const post = new Post({

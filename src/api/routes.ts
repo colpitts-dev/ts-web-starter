@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express'
-import routesV1 from './v1/routes'
+import routesV1 from './v1/index.routes'
 
 const routes = Router()
 

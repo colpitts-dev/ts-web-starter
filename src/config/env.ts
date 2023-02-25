@@ -13,12 +13,14 @@ type ConfigType = {
     appName: string
     port: number
     dbUri: string
+    jwtSecret: string
   }
 }
 
 const baseConfig = {
   appName: process.env.APP_NAME || 'server',
   port: parseInt(process.env.PORT || '3000', 10),
+  jwtSecret: process.env.JWT_SECRET || '-D-E-V--T-O-K-E-N-',
 }
 
 export const appEnv = process.env.NODE_ENV || 'development'
